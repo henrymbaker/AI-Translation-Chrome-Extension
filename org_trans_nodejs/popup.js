@@ -1,9 +1,9 @@
 document.getElementById('translate-button').addEventListener('click', async () => {
-  const textToTranslate = document.getElementById('text-to-translate').value;
+  const textToTranslate = document.getElementById('input-textholder').value;
   const targetLanguage = 'Spanish'; // You can modify this to allow user selection
 
   try {
-      const response = await fetch('http://localhost:3001/translate', {
+      const response = await fetch('http://localhost:3002/translate', {
           method: 'POST',
           headers: {  
               'Content-Type': 'application/json',
@@ -16,9 +16,9 @@ document.getElementById('translate-button').addEventListener('click', async () =
       }
 
       const result = await response.json();
-      document.getElementById('translation-result').innerText = result.translation;
+      document.getElementById('output').innerText = result.translation;
   } catch (error) {
       console.error('Error:', error);
-      document.getElementById('translation-result').innerText = 'Error in translation';
+      document.getElementById('output').innerText = 'Error in translation';
   }
 });

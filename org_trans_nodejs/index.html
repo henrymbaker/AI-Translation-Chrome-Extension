@@ -14,17 +14,45 @@
       height: 100vh;
       margin: 0;
     }
+    #title {
+      text-align: center;
+      color: #4CAF50;
+    }
     #translator-container {
       background-color: white;
-      padding: 20px;
+      padding: 200px;
       border-radius: 8px;
       box-shadow: 0 2px 4px rgba(213, 148, 148, 0.2);
+      display: flex;
+      flex-direction: column;
+      /* width: 400px;
+      height: 400px;
       text-align: center;
+      justify-content: center;
+      align-items: center; */
     }
-    #text-to-translate {
+    #input {
+      display: block;
+      margin-top: 10px;
       width: 300px;
       height: 100px;
       margin-bottom: 10px;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+    }
+    #label {
+      display: block;
+      font-size: 12px;
+      text-align: left;
+      margin-bottom: 5px;
+    }
+    #textholder {
+      height: 100%;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 5px;
+      resize: none;
     }
     #translate-button {
       display: block;
@@ -35,25 +63,41 @@
       border: none;
       border-radius: 4px;
       cursor: pointer;
+      /* margin-top: 10px;
+      margin-bottom: 10px; */
     }
     #translate-button:hover {
       background-color: #45a049;
     }
-    #translation-result {
-      margin-top: 10px;
+    #output {
+      /* margin-top: 10px;
       border: 1px solid #ddd;
       height: 100px;
+      width: 300px; */
+      display: block;
+      margin-top: 10px;
       width: 300px;
-      overflow: auto;
+      height: 100px;
+      margin-bottom: 10px;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      /* overflow: auto; */
     }
   </style>
 </head>
 <body>
   <div id="translator-container">
-    <h2>Organic Translator</h2>
-    <textarea id="text-to-translate" placeholder="Enter text"></textarea>
+    <h2 id="title">Organic Translator</h2>
+    <div id="input">
+      <h1 id="label">Input - English</h1>
+      <textarea id="textholder" placeholder="Enter text"></textarea>
+    </div>
     <button id="translate-button">Translate</button>
-    <div id="translation-result">Translation will appear here...</div>
+    <div id="output">
+      <h1 id="label">Output - Spanish</h1>
+      <textarea id="textholder" placeholder="Translation will appear here..."></textarea>
+    </div>
   </div>
   <script src="popup.js"></script>
 </body>
