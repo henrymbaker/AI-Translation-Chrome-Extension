@@ -16,7 +16,7 @@ document.getElementById('translate-button').addEventListener('click', async () =
       }
 
       const result = await response.json();
-      document.getElementById('output').innerText = result.translation;
+      document.getElementById('output-textholder').innerText = result.translation;
   } catch (error) {
       console.error('Error:', error);
       document.getElementById('output').innerText = 'Error in translation';
