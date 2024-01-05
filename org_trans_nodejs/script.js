@@ -24,7 +24,7 @@ app.post('/translate', async (req, res) => {
         const response = await openai.chat.completions.create({
             model: "gpt-3.5-turbo", // or use the latest available model
             messages: [{role: "system", 
-            content: `Translate ${text} from ${targetLanguage} to english`}],
+            content: `Translate ${text} from ${targetLanguage} to English`}],
         });
         // console.log(response)
         const translation = response.choices[0].message.content;
