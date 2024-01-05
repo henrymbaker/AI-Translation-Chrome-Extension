@@ -1,98 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Organic Translateeer</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
-    #title {
-      text-align: center;
-      color: #4CAF50;
-    }
-    #translator-container {
-      background-color: white;
-      padding: 200px;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(213, 148, 148, 0.2);
-      display: flex;
-      flex-direction: column;
-      /* width: 400px;
-      height: 400px;
-      text-align: center;
-      justify-content: center;
-      align-items: center; */
-    }
-    #input {
-      display: block;
-      margin-top: 10px;
-      width: 300px;
-      height: 100px;
-      margin-bottom: 10px;
-      text-align: left;
-      display: flex;
-      flex-direction: column;
-    }
-    #label {
-      display: block;
-      font-size: 12px;
-      text-align: left;
-      margin-bottom: 5px;
-    }
-    #input-textholder {
-      height: 100%;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      padding: 5px;
-      resize: none;
-    }
-    #translate-button {
-      display: block;
-      margin: 10px auto;
-      padding: 10px 20px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      /* margin-top: 10px;
-      margin-bottom: 10px; */
-    }
-    #translate-button:hover {
-      background-color: #45a049;
-    }
-    #output {
-      /* margin-top: 10px;
-      border: 1px solid #ddd;
-      height: 100px;
-      width: 300px; */
-      display: block;
-      margin-top: 10px;
-      width: 300px;
-      height: 100px;
-      margin-bottom: 10px;
-      text-align: left;
-      display: flex;
-      flex-direction: column;
-      /* overflow: auto; */
-    }
-    #output-textholder {
-      height: 100%;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      padding: 5px;
-      resize: none;
-    }
-  </style>
+  <link rel="stylesheet" href="./style.css">
+
 </head>
+
 <body>
   <div id="translator-container">
     <h2 id="title">Organic Translator</h2>
@@ -103,9 +19,22 @@
     <button id="translate-button">Translate</button>
     <div id="output">
       <h1 id="label">Output - Spanish</h1>
-      <textarea id="output-textholder" placeholder="Translation will appear here..."></textarea>
+      <p id="output-textholder">Translation will appear here...</p>
+      <div class="collapsible">
+        <button class="collapsible-button">> culture</button>
+        <div class="collapsible-content">
+          <p>Culture info will appear here...</p>
+        </div>
+      </div>
+      <div class="collapsible">
+        <button class="collapsible-button">> nuance</button>
+        <div class="collapsible-content">
+          <p>Nuance info will appear here...</p>
+        </div>
+      </div>
+
     </div>
-  </div>
-  <script src="popup.js"></script>
+    <script src="popup.js"></script>
 </body>
+
 </html>
