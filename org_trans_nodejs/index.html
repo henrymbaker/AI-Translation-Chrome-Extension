@@ -47,7 +47,7 @@
       text-align: left;
       margin-bottom: 5px;
     }
-    #textholder {
+    #input-textholder {
       height: 100%;
       border: 1px solid #ddd;
       border-radius: 4px;
@@ -84,6 +84,13 @@
       flex-direction: column;
       /* overflow: auto; */
     }
+    #output-textholder {
+      height: 100%;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 5px;
+      resize: none;
+    }
   </style>
 </head>
 <body>
@@ -91,12 +98,12 @@
     <h2 id="title">Organic Translator</h2>
     <div id="input">
       <h1 id="label">Input - English</h1>
-      <textarea id="textholder" placeholder="Enter text"></textarea>
+      <textarea id="input-textholder" placeholder="Enter text"></textarea>
     </div>
     <button id="translate-button">Translate</button>
     <div id="output">
       <h1 id="label">Output - Spanish</h1>
-      <textarea id="textholder" placeholder="Translation will appear here..."></textarea>
+      <textarea id="output-textholder" placeholder="Translation will appear here..."></textarea>
     </div>
   </div>
   <script src="popup.js"></script>
