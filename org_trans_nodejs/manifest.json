@@ -1,0 +1,9 @@
+{
+  "manifest_version": 3,
+  "name": "Translator Extension",
+  "version": "1.0",
+  "description": "This extension translates shit",
+  "action": {
+      "default_popup": "index.html"
+  }
+}

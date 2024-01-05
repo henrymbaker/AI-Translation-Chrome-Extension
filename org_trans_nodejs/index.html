@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Organic Translateeer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    #translator-container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(213, 148, 148, 0.2);
+      text-align: center;
+    }
+    #text-to-translate {
+      width: 300px;
+      height: 100px;
+      margin-bottom: 10px;
+    }
+    #translate-button {
+      display: block;
+      margin: 10px auto;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    #translate-button:hover {
+      background-color: #45a049;
+    }
+    #translation-result {
+      margin-top: 10px;
+      border: 1px solid #ddd;
+      height: 100px;
+      width: 300px;
+      overflow: auto;
+    }
+  </style>
+</head>
+<body>
+  <div id="translator-container">
+    <h2>Organic Translator</h2>
+    <textarea id="text-to-translate" placeholder="Enter text"></textarea>
+    <button id="translate-button">Translate</button>
+    <div id="translation-result">Translation will appear here...</div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
