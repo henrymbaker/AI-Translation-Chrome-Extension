@@ -120,58 +120,65 @@ function clearClass() {
 
 document.addEventListener('mouseup', function (e) {
   console.log("mouseup");
-  mouseDown = false;
-  clearClass();
-  // Get the selected text range or create a range manually
-  //if they click on something other than a word, just return after unselecting everything
-  if (e.target.nodeName != 'SPAN') {
-    SELECTED_STRING = "";
-    updateTextBox();
+
+  // Check if the mouseup event is on the container
+  if (container.contains(e.target)) {
+    // Do not perform selection if the mouseup event is on the container
     return;
   }
-  var selection = window.getSelection();
-  var range = selection.getRangeAt(0);
-  range.setStartBefore(range.startContainer);
-  range.setEndAfter(range.endContainer);
-  // Create a DocumentFragment to hold the contents of the range
-  var fragment = range.cloneContents();
 
-  // Create a temporary div to append the fragment and traverse its contents
-  var tempDiv = document.createElement("div");
-  tempDiv.appendChild(fragment);
-
-  // Find all the <span> elements within the temporary div
-  var spanElements = tempDiv.querySelectorAll("span");
-  let concatenatedText = '';
-  //print elements if it is a <span> element and it is in the classList
-  // Iterate through the <span> elements and print their content
-  spanElements.forEach(function (span) {
-    span.classList.add(MOUSE_VISITED_CLASSNAME);
-    concatenatedText += span.textContent + " ";
-  });
-  console.log(concatenatedText.trim());
-  SELECTED_STRING = concatenatedText.trim();
-  createNuanceWindow();
-  updateTextBox();
   mouseDown = false;
-});
+  clearClass();
 
-document.addEventListener('mousedown', function (event) {
-  console.log("mousedown");
-  // Prevent the default behavior of the mousedown event
-  event.stopImmediatePropagation();
-  mouseDown = true;
-  if (event.target.nodeName != 'SPAN') {
+  // Check if the mouseup event is not on a <span> element
+  if (e.target.nodeName != 'SPAN') {
+    console.log("clear");
     SELECTED_STRING = "";
     updateTextBox();
-    return;
+  } else {
+    // Handle selection if the mouseup event is on a <span> element
+    var selection = window.getSelection();
+    var range = selection.getRangeAt(0);
+    range.setStartBefore(range.startContainer);
+    range.setEndAfter(range.endContainer);
+    var fragment = range.cloneContents();
+
+    var tempDiv = document.createElement("div");
+    tempDiv.appendChild(fragment);
+
+    var spanElements = tempDiv.querySelectorAll("span");
+    let concatenatedText = '';
+    spanElements.forEach(function (span) {
+      span.classList.add(MOUSE_VISITED_CLASSNAME);
+      concatenatedText += span.textContent + " ";
+    });
+    console.log(concatenatedText.trim());
+    SELECTED_STRING = concatenatedText.trim();
+    createNuanceWindow();
+    updateTextBox();
+  }
+});
+
+
+document.addEventListener('mousedown', function (e) {
+  console.log("mousedown");
+  // Prevent the default behavior of the mousedown event
+  e.stopPropagation();
+  mouseDown = true;
+  if (e.target.nodeName != 'SPAN' && !container.contains(e.target)) {
+    // Clear the selected string and update the text box if we click outside the container
+    SELECTED_STRING = '';
+    updateTextBox();
+    console.log("clicked outside container")
   }
 });
 
 // Mouse listener for any move event on the current document.
 document.addEventListener('mousemove', function (e) {
-  console.log("mousemove");
-  if (mouseDown) {
+  // console.log("mousemove");
+  e.stopPropagation();
+  if (mouseDown && container.contains(e.target)) {
+    console.log("don't select")
     return;
   }
   var srcElement = e.target;
