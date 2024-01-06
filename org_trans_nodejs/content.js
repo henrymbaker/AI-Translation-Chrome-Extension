@@ -7,8 +7,6 @@ var windowActive = false;
 // The HTML content you want to inject
 
 const container = document.createElement('div');
-
-
 function createNuanceWindow() {
   if (windowActive) {
     updateTextBox();
@@ -67,7 +65,6 @@ function createNuanceWindow() {
     .catch(error => {
       console.error('Error fetching index.html:', error);
     });
-
   windowActive = true;
 }
 
@@ -85,8 +82,6 @@ function updateTextBox() {
   }
 }
 
-
-
 createNuanceWindow();
 window.onload = function () {
   // Select all <p> elements
@@ -99,8 +94,6 @@ window.onload = function () {
     pElement.innerHTML = spanWrappedWords.join(' ');
   }
 };
-
-
 
 // Unique ID for the className.
 
@@ -116,7 +109,6 @@ function clearClass() {
 
 // Previous dom, that we want to track, so we can remove the previous styling.
 //var mouseDown = false;
-
 
 document.addEventListener('mouseup', function (e) {
   console.log("mouseup");
