@@ -106,9 +106,8 @@ document.getElementById('translate-button').addEventListener('click', async () =
 
 });
 
-document.addEventListener("DOMContentLoaded", function () {
     var collapsible = document.getElementsByClassName("collapsible-button");
-
+    console.log("clicked")
     for (var i = 0; i < collapsible.length; i++) {
         collapsible[i].addEventListener("click", function () {
             this.classList.toggle("active");
@@ -122,4 +121,3 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
-});
