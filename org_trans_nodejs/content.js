@@ -78,6 +78,9 @@ document.addEventListener('mouseup', function (e) {
       concatenatedText += span.textContent + " ";
     });
   console.log(concatenatedText.trim());
+  chrome.storage.local.set({ "myStringKey": concatenatedText }, function() {
+    console.log("String saved to Chrome storage.");
+  });
   mouseDown = false;
 });
 
