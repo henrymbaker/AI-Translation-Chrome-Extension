@@ -28,7 +28,8 @@ app.post('/translate', async (req, res) => {
             messages: [
                 {role: "system", content: preprompt},
                 {role: "system", content: context},
-                {role: "system", content: `Translate ${text} to ${targetLanguage}. Respond only with the translation, no additional words.`},
+                {role: "system", content: `Translate ${text} into to ${targetLanguage}.
+                The translation should take context into account and represent the intent of the text to the best of your ability. If ambiguous, it should be your best guess. The response should ONLY contain the translation of the text.`},
             ],
         });
         // console.log(response)

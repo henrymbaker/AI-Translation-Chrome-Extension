@@ -2,6 +2,11 @@ document.getElementById('translate-button').addEventListener('click', async () =
     const textToTranslate = document.getElementById('input-textholder').value;
     const targetLanguage = 'English'; // You can modify this to allow user selection
 
+    // reset text output fields
+    document.getElementById('output-textholder').innerText = 'Translation will appear here...';
+    document.getElementById('grammar-content').innerText = 'Grammar info will appear here...';
+    document.getElementById('nuance-content').innerText = 'Nuance info will appear here...';
+
     try {
         const response = await fetch('http://localhost:3002/translate', {
             method: 'POST',
@@ -20,7 +25,7 @@ document.getElementById('translate-button').addEventListener('click', async () =
 
     } catch (error) {
         console.error('Error:', error);
-        document.getElementById('output').innerText = 'Error in translation';
+        document.getElementById('output-textholder').innerText = 'Error in translation';
     }
 
     try {
