@@ -1,7 +1,5 @@
-// require('dotenv').config({ debug: process.env.DEBUG });
 const fs = require('fs');
 const express = require('express');
-// const { OpenAIApi, Configuration } = require('openai');
 const cors = require('cors');
 
 const app = express();
@@ -9,13 +7,6 @@ app.use(express.json()); // Middleware for JSON request parsing
 app.use(cors());
 
 const OpenAI = require('openai');
-
-// const configuration = new OpenAI.Configuration({
-//   apiKey: process.env.OPENAI_API_KEY,
-// });
-
-// const openai = new OpenAI.OpenAIApi(configuration);
-// const openai = new OpenAI(process.env.OPENAI_API_KEY);
 const openai = new OpenAI();
 
 // main function to make the api call, need to use chat completion api call
