@@ -1,8 +1,11 @@
 // require('dotenv').config({ debug: process.env.DEBUG });
 const fs = require('fs');
+const axios = require('axios');
 const express = require('express');
 // const { OpenAIApi, Configuration } = require('openai');
 const cors = require('cors');
+
+const url = "https://ivb5y3fn06.execute-api.us-east-1.amazonaws.com/helloWorld";
 
 const app = express();
 app.use(express.json()); // Middleware for JSON request parsing
@@ -23,18 +26,15 @@ app.post('/translate', async (req, res) => {
     const { text, targetLanguage, context } = req.body;
     const preprompt = fs.readFileSync('./preprompt.txt', 'utf8');
     try {
-        const response = await openai.chat.completions.create({
-            model: "gpt-3.5-turbo", // or use the latest available model
-            messages: [
-                {role: "system", content: preprompt},
-                {role: "system", content: context},
-                {role: "system", content: `Translate ${text} into to ${targetLanguage}.
-                The translation should take context into account and represent the intent of the text to the best of your ability. If ambiguous, it should be your best guess. The response should ONLY contain the translation of the text.`},
-            ],
-        });
-        // console.log(response)
-        const translation = response.choices[0].message.content;
-        console.log('Translation:', translation);
+        messages = {'preprompt': preprompt,
+        'context': context,
+        'task': `Translate ${text} into to ${targetLanguage}.
+        The translation should take context into account and represent the intent of the text to the best of your ability. If ambiguous, it should be your best guess. The response should ONLY contain the translation of the text.`};
+        console.log(messages);
+        const response = await axios.get(url, { params: messages });
+        console.log(response.status); // status code
+        console.log(response.data); // the response
+        const translation = response.data;
         res.json({ translation });
     } catch (error) {
         console.error('Error in translation:', error);
