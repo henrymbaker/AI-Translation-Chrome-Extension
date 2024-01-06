@@ -9,9 +9,6 @@ const app = express();
 app.use(express.json()); // Middleware for JSON request parsing
 app.use(cors());
 
-const OpenAI = require('openai');
-const openai = new OpenAI();
-
 // main function to make the api call, need to use chat completion api call
 app.post('/translate', async (req, res) => {
     const { text, targetLanguage, context } = req.body;
