@@ -65,18 +65,8 @@ document.addEventListener('mouseup', function (e) {
 
 document.addEventListener('mousedown', function (event) {
     console.log("mousedown");
-  var clickEvent = new MouseEvent('click', {
-    bubbles: true,
-    cancelable: true,
-    view: window,
-    button: 0 // Left mouse button
-  });
-
-  // Dispatch the synthetic click event to simulate a click
-  document.dispatchEvent(clickEvent);
   // Prevent the default behavior of the mousedown event
   event.stopImmediatePropagation();
-
   mouseDown = true;
 });
 
