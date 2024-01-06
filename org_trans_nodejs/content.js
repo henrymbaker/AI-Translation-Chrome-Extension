@@ -112,14 +112,14 @@ function clearClass() {
 
 document.addEventListener('mouseup', function (e) {
   console.log("mouseup");
-
+  mouseDown = false;
   // Check if the mouseup event is on the container
   if (container.contains(e.target)) {
     // Do not perform selection if the mouseup event is on the container
     return;
   }
 
-  mouseDown = false;
+  
   clearClass();
   // Check if the mouseup event is not on a <span> element and there is a selected text
   if (!mouseDown && !window.getSelection().toString()) {
@@ -168,7 +168,7 @@ document.addEventListener('mousedown', function (e) {
 // Mouse listener for any move event on the current document.
 document.addEventListener('mousemove', function (e) {
   // console.log("mousemove");
-  e.stopPropagation();
+  // e.stopPropagation();
   if (mouseDown && container.contains(e.target)) {
     console.log("don't select")
     return;
