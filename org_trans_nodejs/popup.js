@@ -8,7 +8,7 @@ document.getElementById('translate-button').addEventListener('click', async () =
           headers: {  
               'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ text: textToTranslate, targetLanguage }),
+          body: JSON.stringify({ text: textToTranslate, targetLanguage, context: 'Context of word is unknown.'}),
       });
 
       if (!response.ok) {
