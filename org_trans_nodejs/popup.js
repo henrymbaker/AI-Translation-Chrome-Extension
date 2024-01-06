@@ -91,17 +91,3 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
-
-chrome.storage.onChanged.addListener(function(changes, namespace) {
-    for (let key in changes) {
-        let storageChange = changes[key];
-
-        // Check if the changed key is the one you're interested in
-        if(key === "myStringKey") {
-            //console.log('Storage key "%s" in namespace "%s" changed.', key, namespace);
-            //console.log('Old value was "%s", new value is "%s".', storageChange.oldValue, storageChange.newValue);
-            document.getElementById('input-textholder').innerText = storageChange.newValue;
-            // Do something with storageChange.newValue
-        }
-    }
-});

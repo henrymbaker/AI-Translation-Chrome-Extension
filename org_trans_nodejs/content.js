@@ -2,6 +2,88 @@ var MOUSE_VISITED_CLASSNAME = 'crx_mouse_visited';
 var PREV_ELEMENT = null;
 var mouseDown = false;
 
+
+
+
+
+
+// The HTML content you want to inject
+const htmlContent = `<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Organic Translateeer</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+
+<body>
+  <div id="translator-container">
+    <h2 id="title">Organic Translator</h2>
+    <div id="input">
+      <h1 id="label">Input - Detected Language</h1>
+      <textarea class="text-box" id="input-textholder" placeholder="Enter text"></textarea>
+    </div>
+    <button id="translate-button">Translate</button>
+    <div id="output">
+      <h1 id="label">Output - English</h1>
+      <p  class="text-box" id="output-textholder">Translation will appear here...</p>
+      <div class="collapsible">
+        <button class="collapsible-button">> grammar</button>
+        <div class="collapsible-content">
+          <p id="grammar-content">Grammar info will appear here...</p>
+        </div>
+      </div>
+      <div class="collapsible">
+        <button class="collapsible-button">> nuance</button>
+        <div class="collapsible-content">
+          <p id="nuance-content">Nuance info will appear here...</p>
+        </div>
+      </div>
+
+    </div>
+    <script src="popup.js"></script>
+</body>
+
+</html>`;
+
+// Create a container div to hold your HTML
+const container = document.createElement('div');
+container.id = 'my-extension-container';
+container.innerHTML = htmlContent;
+
+// Append the container to the body
+document.body.appendChild(container);
+
+// Add styles to position the container in the upper right corner
+container.style.backgroundColor = 'white'; // Change 'white' to your desired color
+container.style.boxShadow = '0px 0px 10px rgba(0, 0, 0, 0.5)'; // Optional: Adds a shadow for better visibility
+container.style.padding = '10px'; // Optional: Adds some space inside the container
+container.style.borderRadius = '5px'; // Optional: Rounds the corners
+container.style.width = '300px'; // Set a fixed width
+container.style.height = 'auto'; // Adjust height automatically
+container.style.overflow = 'auto'; // Add scroll if content overflows
+container.style.position = 'fixed';
+container.style.top = '0';
+container.style.right = '0';
+container.style.zIndex = '1000'; // Ensure it's on top of other elements
+// Add any other styles as needed
+// Dynamically create a script element
+const script = document.createElement('script');
+script.src = chrome.runtime.getURL('popup.js'); // Get the correct URL for the extension file
+script.onload = function() {
+    this.remove(); // Optional: Removes the script element once loaded
+};
+
+// Append the script to the body of the container or any specific part you want
+container.appendChild(script);
+
+
+
+
+
 window.onload = function () {
     // Select all <p> elements
     var pElements = document.getElementsByTagName('p');
@@ -45,8 +127,23 @@ function clearClass() {
     });
 }
 
+
+chrome.storage.onChanged.addListener(function(changes, namespace) {
+    for (let key in changes) {
+        let storageChange = changes[key];
+
+        // Check if the changed key is the one you're interested in
+        if(key === "myStringKey") {
+            console.log('Storage key "%s" in namespace "%s" changed.', key, namespace);
+            console.log('Old value was "%s", new value is "%s".', storageChange.oldValue, storageChange.newValue);
+            document.getElementById('input-textholder').value = storageChange.newValue;
+            // Do something with storageChange.newValue
+        }
+    }
+});
 // Previous dom, that we want to track, so we can remove the previous styling.
 //var mouseDown = false;
+
 
 document.addEventListener('mouseup', function (e) {
     console.log("mouseup");
