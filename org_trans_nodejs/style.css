@@ -1,8 +1,8 @@
-* {
+/* * {
     font-family: Arial, sans-serif;
-}
+} */
 
-body {
+/* body {
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
   display: flex;
@@ -15,6 +15,11 @@ body {
   min-width: 350px;
   max-width: 500px;
   margin: 0;
+} */
+
+.organic-translator {
+    font-family: Arial, sans-serif;
+    color: black;
 }
 
 #title {
