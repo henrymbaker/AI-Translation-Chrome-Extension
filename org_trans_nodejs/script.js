@@ -28,8 +28,7 @@ app.post('/translate', async (req, res) => {
             messages: [
                 {role: "system", content: preprompt},
                 {role: "system", content: context},
-                {role: "system", 
-            content: `Translate ${text} to ${targetLanguage}`}  
+                {role: "system", content: `Translate ${text} to ${targetLanguage}. Respond only with the translation, no additional words.`},
             ],
         });
         // console.log(response)
@@ -39,6 +38,28 @@ app.post('/translate', async (req, res) => {
     } catch (error) {
         console.error('Error in translation:', error);
         res.status(500).send('Error in translation');
+    }
+});
+
+app.post('/grammar', async (req, res) => {
+    const { text, targetLanguage, context } = req.body;
+    const preprompt = fs.readFileSync('./preprompt.txt', 'utf8');
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-3.5-turbo", // or use the latest available model
+            messages: [
+                {role: "system", content: preprompt},
+                {role: "system", content: context},
+                {role: "system", content: `Explain in ${targetLanguage} how the word ${text} is used in it's own language gramatically. Limit your response to succinct and essential information, no more than three sentences.`},
+            ],
+        });
+        // console.log(response)
+        const translation = response.choices[0].message.content;
+        console.log('Grammar:', translation);
+        res.json({ translation });
+    } catch (error) {
+        console.error('Error in getting grammar:', error);
+        res.status(500).send('Error in getting grammar');
     }
 });
 
