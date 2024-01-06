@@ -1,25 +1,52 @@
+* {
+    font-family: Arial, sans-serif;
+}
+
 body {
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 400px;
+  height: fit-content;
+  max-height: 100vh;
+  min-width: 350px;
+  max-width: 500px;
   margin: 0;
 }
 
 #title {
   text-align: center;
   color: #4CAF50;
+  margin: 1%;
+}
+
+.text-box {
+    min-height: 25px;
+    height: fit-content;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    resize: none;
+    margin: 0;
 }
 
 #translator-container {
   background-color: white;
-  padding: 200px;
+  padding: 5%;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(213, 148, 148, 0.2);
   display: flex;
   flex-direction: column;
+  height: fit-content;
+  min-height: 400px;
+  max-height: 100vh;
+  width: 90%;
+  overflow: scroll;
+  padding-bottom: 5%;
   /* width: 400px;
   height: 400px;
   text-align: center;
@@ -30,7 +57,7 @@ body {
 #input {
   display: block;
   margin-top: 10px;
-  width: 300px;
+  width: 100%;
   height: 100px;
   margin-bottom: 10px;
   text-align: left;
@@ -40,17 +67,12 @@ body {
 
 #label {
   display: block;
-  font-size: 12px;
+  font-size: 16px;
   text-align: left;
   margin-bottom: 5px;
 }
 
 #input-textholder {
-  height: 100%;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 5px;
-  resize: none;
 }
 
 #translate-button {
@@ -62,8 +84,6 @@ body {
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  /* margin-top: 10px;
-  margin-bottom: 10px; */
 }
 
 #translate-button:hover {
@@ -71,30 +91,19 @@ body {
 }
 
 #output {
-  /* margin-top: 10px;
-  border: 1px solid #ddd;
-  height: 100px;
-  width: 300px; */
   display: block;
   margin-top: 10px;
-  width: 300px;
-  height: 100px;
+  width: 100%;
+  min-height: 100px;
+  height: fit-content;
   margin-bottom: 10px;
   text-align: left;
   display: flex;
   flex-direction: column;
-  /* overflow: auto; */
+
 }
 
 #output-textholder {
-  height: 50px;
-  min-height: 50px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 5px;
-  resize: none;
-  margin: 5px;
-
 }
 
 .clickable-text {
@@ -116,6 +125,10 @@ body {
   text-align: left;
   margin-top: 10px;
   height: fit-content;
+}
+
+.collapsible {
+    margin: 1%;
 }
 
 .collapsible-content {
