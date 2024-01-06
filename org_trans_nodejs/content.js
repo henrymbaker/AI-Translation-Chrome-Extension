@@ -60,7 +60,6 @@ document.addEventListener('mouseup', function (e) {
       console.log(span.textContent);
       span.classList.add(MOUSE_VISITED_CLASSNAME);
     });
-  console.log("mousedown is now false");
   mouseDown = false;
 });
 
