@@ -33,15 +33,36 @@ document.getElementById('translate-button').addEventListener('click', async () =
         });
 
         if (!response.ok) {
-            throw new Error('Translation request failed');
+            throw new Error('Grammar request failed');
         }
 
         const result = await response.json();
-        document.getElementById('grammar-content').innerText = result.translation;
+        document.getElementById('grammar-content').innerText = result.grammar;
 
     } catch (error) {
         console.error('Error:', error);
-        document.getElementById('output').innerText = 'Error in grammar';
+        document.getElementById('grammar-content').innerText = 'Error in grammar';
+    }
+
+    try {
+        const response = await fetch('http://localhost:3002/nuance', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ text: textToTranslate, targetLanguage, context: 'Context of word is unknown.' }),
+        });
+
+        if (!response.ok) {
+            throw new Error('Nuance request failed');
+        }
+
+        const result = await response.json();
+        document.getElementById('nuance-content').innerText = result.nuance;
+
+    } catch (error) {
+        console.error('Error:', error);
+        document.getElementById('nuance-content').innerText = 'Error in nuance';
     }
 
 
