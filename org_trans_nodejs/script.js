@@ -1,4 +1,5 @@
 // require('dotenv').config({ debug: process.env.DEBUG });
+const fs = require('fs');
 const express = require('express');
 // const { OpenAIApi, Configuration } = require('openai');
 const cors = require('cors');
@@ -20,11 +21,15 @@ const openai = new OpenAI();
 // main function to make the api call, need to use chat completion api call
 app.post('/translate', async (req, res) => {
     const { text, targetLanguage } = req.body;
+    const context = fs.readFileSync('./context.txt', 'utf8');
     try {
         const response = await openai.chat.completions.create({
             model: "gpt-3.5-turbo", // or use the latest available model
-            messages: [{role: "system", 
-            content: `Translate ${text} from ${targetLanguage} to English`}],
+            messages: [
+                {role: "system", content: context},
+                {role: "system", 
+            content: 'Translate ${text} to ${targetLanguage}'}  
+            ],
         });
         // console.log(response)
         const translation = response.choices[0].message.content;
