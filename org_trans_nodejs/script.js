@@ -26,14 +26,12 @@ app.post('/translate', async (req, res) => {
         const response = await openai.chat.completions.create({
             model: "gpt-3.5-turbo", // or use the latest available model
             messages: [
-                {role: "system", content: preprompt},
-                {role: "system", 
-            content: `Translate ${text} to ${targetLanguage}`}  
+                {role: "system", content: `Context: ${preprompt}, Translate ${text} to ${targetLanguage}`}  
             ],
         });
         // console.log(response)
         const translation = response.choices[0].message.content;
-        console.log('Translation:', translation);
+        // console.log('Translation:', translation);
         res.json({ translation });
     } catch (error) {
         console.error('Error in translation:', error);

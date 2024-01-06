@@ -1,6 +1,13 @@
+document.getElementById('input-textholder').addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+      event.preventDefault(); // Prevents the default action of Enter key
+      document.getElementById('translate-button').click(); // Simulates a click on the translate button
+    }
+  });
+  
 document.getElementById('translate-button').addEventListener('click', async () => {
   const textToTranslate = document.getElementById('input-textholder').value;
-  const targetLanguage = 'Spanish'; // You can modify this to allow user selection
+  const targetLanguage = 'English'; // You can modify this to allow user selection
 
   try {
       const response = await fetch('http://localhost:3002/translate', {
