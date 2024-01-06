@@ -27,6 +27,19 @@
     color: black !important;
     background-color: white;
     z-index: 1;
+    flex-shrink: 0;
+}
+
+#my-extension-container {
+    padding: 0;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+    width: 300px;
+    height: fit-content;
+    max-height: 100vh;
+    overflow: scroll;
 }
 
 #translator-container {
@@ -53,6 +66,7 @@
     text-align: center;
     color: var(--dgreen);
     margin: 1%;
+    min-height: 30px;
 }
 
 .text-box {
@@ -79,6 +93,7 @@
 }
 
 #label {
+    min-height: 20px;
     display: block;
     font-size: 16px;
     text-align: left;
@@ -113,10 +128,11 @@
     display: flex;
     flex-direction: column;
     font-size: 16px;
-
 }
 
-#output-textholder {}
+#output-textholder {
+    height: fit-content;
+}
 
 .clickable-text {
     cursor: pointer;

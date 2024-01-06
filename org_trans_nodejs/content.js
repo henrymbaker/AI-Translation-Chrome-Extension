@@ -24,17 +24,17 @@ function createNuanceWindow() {
 
       // Add styles to position the container in the upper right corner
 
-      container.style.backgroundColor = 'white';
-      container.style.boxShadow = '0px 0px 10px rgba(0, 0, 0, 0.5)';
-      container.style.padding = '10px';
-      container.style.borderRadius = '5px';
-      container.style.width = '300px';
-      container.style.height = 'auto';
-      container.style.overflow = 'auto';
-      container.style.position = 'fixed';
-      container.style.top = '0';
-      container.style.right = '0';
-      container.style.zIndex = '1000';
+    //   container.style.backgroundColor = 'white';
+    //   container.style.boxShadow = '0px 0px 10px rgba(0, 0, 0, 0.5)';
+    //   container.style.padding = '10px';
+    //   container.style.borderRadius = '5px';
+    //   container.style.width = '300px';
+    //   container.style.height = 'auto';
+    //   container.style.overflow = 'auto';
+    //   container.style.position = 'fixed';
+    //   container.style.top = '0';
+    //   container.style.right = '0';
+    //   container.style.zIndex = '1000';
       // Add any other styles as needed
       // Dynamically create a script element
       const script = document.createElement('script');
@@ -49,6 +49,7 @@ function createNuanceWindow() {
       const closeButton = document.createElement('button');
       closeButton.innerText = 'X';
       closeButton.style.position = 'absolute';
+      closeButton.style.zIndex = '1001';
       closeButton.style.top = '5px';
       closeButton.style.right = '5px';
       closeButton.style.cursor = 'pointer';
