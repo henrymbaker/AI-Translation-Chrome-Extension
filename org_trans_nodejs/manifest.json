@@ -3,6 +3,11 @@
   "name": "Translator Extension",
   "version": "1.0",
   "description": "This extension translates shit",
+  "icons": {
+    "16": "icons/org_trans16.png",
+    "48": "icons/org_trans48.png",
+    "128": "icons/org_trans128.png"
+  },
   "action": {
       "default_popup": "index.html"
   }
