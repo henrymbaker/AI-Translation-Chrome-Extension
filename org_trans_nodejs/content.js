@@ -1,12 +1,9 @@
 var MOUSE_VISITED_CLASSNAME = 'crx_mouse_visited';
+const STORAGE_STRING_KEY_NAME = "mystringKey";
+var SELECTED_STRING = "";
 var PREV_ELEMENT = null;
 var mouseDown = false;
-
-
-
-
-
-
+var windowActive = false;
 // The HTML content you want to inject
 const htmlContent = `<!DOCTYPE html>
 <html lang="en">
@@ -49,41 +46,74 @@ const htmlContent = `<!DOCTYPE html>
 
 </html>`;
 
-// Create a container div to hold your HTML
 const container = document.createElement('div');
-container.id = 'my-extension-container';
-container.innerHTML = htmlContent;
-
-// Append the container to the body
-document.body.appendChild(container);
-
-// Add styles to position the container in the upper right corner
-container.style.backgroundColor = 'white'; // Change 'white' to your desired color
-container.style.boxShadow = '0px 0px 10px rgba(0, 0, 0, 0.5)'; // Optional: Adds a shadow for better visibility
-container.style.padding = '10px'; // Optional: Adds some space inside the container
-container.style.borderRadius = '5px'; // Optional: Rounds the corners
-container.style.width = '300px'; // Set a fixed width
-container.style.height = 'auto'; // Adjust height automatically
-container.style.overflow = 'auto'; // Add scroll if content overflows
-container.style.position = 'fixed';
-container.style.top = '0';
-container.style.right = '0';
-container.style.zIndex = '1000'; // Ensure it's on top of other elements
-// Add any other styles as needed
-// Dynamically create a script element
-const script = document.createElement('script');
-script.src = chrome.runtime.getURL('popup.js'); // Get the correct URL for the extension file
-script.onload = function() {
-    this.remove(); // Optional: Removes the script element once loaded
-};
-
-// Append the script to the body of the container or any specific part you want
-container.appendChild(script);
 
 
+function createNuanceWindow() {
+    if (windowActive) {
+        updateTextBox();
+        return;
+    }
+    // Create a container div to hold your HTML
+    container.id = 'my-extension-container';
+    container.innerHTML = htmlContent;
+
+    // Append the container to the body
+    document.body.appendChild(container);
+
+    // Add styles to position the container in the upper right corner
+    container.style.backgroundColor = 'white'; // Change 'white' to your desired color
+    container.style.boxShadow = '0px 0px 10px rgba(0, 0, 0, 0.5)'; // Optional: Adds a shadow for better visibility
+    container.style.padding = '10px'; // Optional: Adds some space inside the container
+    container.style.borderRadius = '5px'; // Optional: Rounds the corners
+    container.style.width = '300px'; // Set a fixed width
+    container.style.height = 'auto'; // Adjust height automatically
+    container.style.overflow = 'auto'; // Add scroll if content overflows
+    container.style.position = 'fixed';
+    container.style.top = '0';
+    container.style.right = '0';
+    container.style.zIndex = '1000'; // Ensure it's on top of other elements
+    // Add any other styles as needed
+    // Dynamically create a script element
+    const script = document.createElement('script');
+    script.src = chrome.runtime.getURL('popup.js'); // Get the correct URL for the extension file
+    script.onload = function () {
+        this.remove(); // Optional: Removes the script element once loaded
+    };
+
+    // Append the script to the body of the container or any specific part you want
+    container.appendChild(script);
+    // Create a close button
+    const closeButton = document.createElement('button');
+    closeButton.innerText = 'X';
+    closeButton.style.position = 'absolute';
+    closeButton.style.top = '5px';
+    closeButton.style.right = '5px';
+    closeButton.style.cursor = 'pointer';
+
+    // Append the close button to your container
+    container.appendChild(closeButton);
+
+    // Event listener for the close button
+    closeButton.addEventListener('click', closeNuanceWindow);
+    windowActive = true;
+    updateTextBox();
+}
+
+function closeNuanceWindow() {
+    if (windowActive) {
+        container.remove(); // This will remove the container from the page
+        windowActive = false;
+    }
+}
+
+function updateTextBox() {
+    document.getElementById('input-textholder').value = SELECTED_STRING;
+}
 
 
 
+createNuanceWindow();
 window.onload = function () {
     // Select all <p> elements
     var pElements = document.getElementsByTagName('p');
@@ -96,23 +126,6 @@ window.onload = function () {
     }
 };
 
-function classListToString() {
-  // Select all <span> elements with a specific class
-let spans = document.querySelectorAll('.' + MOUSE_VISITED_CLASSNAME);
-
-// Initialize an empty string to hold the concatenated text
-let concatenatedText = '';
-
-// Iterate over each <span> element and concatenate their text content
-spans.forEach(span => {
-    concatenatedText += span.textContent + " "; // Add a space between each text
-    console.log(span.textContent);
-});
-
-// 'concatenatedText' now contains the combined text of all <span> elements
-console.log(concatenatedText.trim()); // trim() is used to remove the trailing space
-
-}
 
 
 // Unique ID for the className.
@@ -127,20 +140,6 @@ function clearClass() {
     });
 }
 
-
-chrome.storage.onChanged.addListener(function(changes, namespace) {
-    for (let key in changes) {
-        let storageChange = changes[key];
-
-        // Check if the changed key is the one you're interested in
-        if(key === "myStringKey") {
-            console.log('Storage key "%s" in namespace "%s" changed.', key, namespace);
-            console.log('Old value was "%s", new value is "%s".', storageChange.oldValue, storageChange.newValue);
-            document.getElementById('input-textholder').value = storageChange.newValue;
-            // Do something with storageChange.newValue
-        }
-    }
-});
 // Previous dom, that we want to track, so we can remove the previous styling.
 //var mouseDown = false;
 
@@ -165,20 +164,19 @@ document.addEventListener('mouseup', function (e) {
     var tempDiv = document.createElement("div");
     tempDiv.appendChild(fragment);
 
-  // Find all the <span> elements within the temporary div
-  var spanElements = tempDiv.querySelectorAll("span");
-  let concatenatedText = '';
-  //print elements if it is a <span> element and it is in the classList
-  // Iterate through the <span> elements and print their content
+    // Find all the <span> elements within the temporary div
+    var spanElements = tempDiv.querySelectorAll("span");
+    let concatenatedText = '';
+    //print elements if it is a <span> element and it is in the classList
+    // Iterate through the <span> elements and print their content
     spanElements.forEach(function (span) {
-      span.classList.add(MOUSE_VISITED_CLASSNAME);
-      concatenatedText += span.textContent + " ";
+        span.classList.add(MOUSE_VISITED_CLASSNAME);
+        concatenatedText += span.textContent + " ";
     });
-  console.log(concatenatedText.trim());
-  chrome.storage.local.set({ "myStringKey": concatenatedText }, function() {
-    console.log("String saved to Chrome storage.");
-  });
-  mouseDown = false;
+    console.log(concatenatedText.trim());
+    SELECTED_STRING = concatenatedText.trim();
+    createNuanceWindow();
+    mouseDown = false;
 });
 
 document.addEventListener('mousedown', function (event) {
