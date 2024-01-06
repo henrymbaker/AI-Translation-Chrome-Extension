@@ -5,46 +5,6 @@ var PREV_ELEMENT = null;
 var mouseDown = false;
 var windowActive = false;
 // The HTML content you want to inject
-const htmlContent = `<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Organic Translateeer</title>
-  <link rel="stylesheet" href="./style.css">
-
-</head>
-
-<body>
-  <div id="translator-container">
-    <h2 id="title">Organic Translator</h2>
-    <div id="input">
-      <h1 id="label">Input - Detected Language</h1>
-      <textarea class="text-box" id="input-textholder" placeholder="Enter text"></textarea>
-    </div>
-    <button id="translate-button">Translate</button>
-    <div id="output">
-      <h1 id="label">Output - English</h1>
-      <p  class="text-box" id="output-textholder">Translation will appear here...</p>
-      <div class="collapsible">
-        <button class="collapsible-button">> grammar</button>
-        <div class="collapsible-content">
-          <p id="grammar-content">Grammar info will appear here...</p>
-        </div>
-      </div>
-      <div class="collapsible">
-        <button class="collapsible-button">> nuance</button>
-        <div class="collapsible-content">
-          <p id="nuance-content">Nuance info will appear here...</p>
-        </div>
-      </div>
-
-    </div>
-    <script src="popup.js"></script>
-</body>
-
-</html>`;
 
 const container = document.createElement('div');
 
@@ -54,25 +14,29 @@ function createNuanceWindow() {
         updateTextBox();
         return;
     }
-    // Create a container div to hold your HTML
+    fetch(chrome.runtime.getURL('index.html'))
+  .then(response => response.text())
+  .then(htmlContent => {
     container.id = 'my-extension-container';
+    // Set the fetched HTML content to the container
     container.innerHTML = htmlContent;
 
     // Append the container to the body
     document.body.appendChild(container);
 
     // Add styles to position the container in the upper right corner
-    container.style.backgroundColor = 'white'; // Change 'white' to your desired color
-    container.style.boxShadow = '0px 0px 10px rgba(0, 0, 0, 0.5)'; // Optional: Adds a shadow for better visibility
-    container.style.padding = '10px'; // Optional: Adds some space inside the container
-    container.style.borderRadius = '5px'; // Optional: Rounds the corners
-    container.style.width = '300px'; // Set a fixed width
-    container.style.height = 'auto'; // Adjust height automatically
-    container.style.overflow = 'auto'; // Add scroll if content overflows
+    
+    container.style.backgroundColor = 'white';
+    container.style.boxShadow = '0px 0px 10px rgba(0, 0, 0, 0.5)';
+    container.style.padding = '10px';
+    container.style.borderRadius = '5px';
+    container.style.width = '300px';
+    container.style.height = 'auto';
+    container.style.overflow = 'auto';
     container.style.position = 'fixed';
     container.style.top = '0';
     container.style.right = '0';
-    container.style.zIndex = '1000'; // Ensure it's on top of other elements
+    container.style.zIndex = '1000';
     // Add any other styles as needed
     // Dynamically create a script element
     const script = document.createElement('script');
@@ -96,8 +60,15 @@ function createNuanceWindow() {
 
     // Event listener for the close button
     closeButton.addEventListener('click', closeNuanceWindow);
-    windowActive = true;
+  })
+  .then(() => {
     updateTextBox();
+  })
+  .catch(error => {
+    console.error('Error fetching index.html:', error);
+  });
+    
+    windowActive = true;
 }
 
 function closeNuanceWindow() {
@@ -108,7 +79,10 @@ function closeNuanceWindow() {
 }
 
 function updateTextBox() {
-    document.getElementById('input-textholder').value = SELECTED_STRING;
+    var inputTextHolder = document.getElementById('input-textholder');
+    if (inputTextHolder != null) {
+        inputTextHolder.value = SELECTED_STRING;
+    }
 }
 
 
@@ -176,6 +150,7 @@ document.addEventListener('mouseup', function (e) {
     console.log(concatenatedText.trim());
     SELECTED_STRING = concatenatedText.trim();
     createNuanceWindow();
+    updateTextBox();
     mouseDown = false;
 });
 
