@@ -1,57 +1,81 @@
-function wrapTextWithSpan(element) {
-  if (element.classList.contains('translate-processed')) {
-      return; // Skip already processed elements
+var MOUSE_VISITED_CLASSNAME = 'crx_mouse_visited';
+var PREV_ELEMENT = null;
+var mouseDown = false;
+
+window.onload = function() {
+  // Select all <p> elements
+  var pElements = document.getElementsByTagName('p');
+
+  for (var i = 0; i < pElements.length; i++) {
+      var pElement = pElements[i];
+      var words = pElement.innerText.split(' ');
+      var spanWrappedWords = words.map(word => '<span>' + word + '</span>');
+      pElement.innerHTML = spanWrappedWords.join(' ');
   }
+};
 
-  Array.from(element.childNodes).forEach(child => {
-      if (child.nodeType === Node.TEXT_NODE && child.textContent.trim() !== '') {
-          const words = child.textContent.trim().split(/\s+/);
-          words.forEach(word => {
-              const span = document.createElement('span');
-              span.textContent = word;
-              span.className = 'translate-span'; // Add class name here
-              element.insertBefore(span, child);
-              element.insertBefore(document.createTextNode(' '), span.nextSibling);
-          });
-          element.removeChild(child);
-      } else if (child.nodeType === Node.ELEMENT_NODE) {
-          // Replace the element with its text content
-          const text = document.createTextNode(child.textContent);
-          element.replaceChild(text, child);
-          wrapTextWithSpan(element); // Re-run the function to handle the new text node
-      }
-  });
-
-  element.classList.add('translate-processed');
-}
 
 
 // Unique ID for the className.
-var MOUSE_VISITED_CLASSNAME = 'crx_mouse_visited';
+
+function clearClass() {
+  // Select all elements with MOUSE_VISITED_CLASSNAME
+  var elementsToRemove = document.querySelectorAll('.' + MOUSE_VISITED_CLASSNAME);
+
+  // Loop through the NodeList and remove the class from each element
+  elementsToRemove.forEach(function(removedElement) {
+      removedElement.classList.remove(MOUSE_VISITED_CLASSNAME);
+  });
+}
 
 // Previous dom, that we want to track, so we can remove the previous styling.
-var prevDOM = null;
+//var mouseDown = false;
+
+document.addEventListener('mousedown', () => {
+  mouseDown = true;
+  console.log("mousedown is now true")
+});
+
+document.addEventListener('mouseup', () => {
+// Get the selected text range or create a range manually
+
+var selection = window.getSelection();
+var range = selection.getRangeAt(0);
+range.setStartBefore(range.startContainer);
+range.setEndAfter(range.endContainer);
+// Create a DocumentFragment to hold the contents of the range
+var fragment = range.cloneContents();
+
+// Create a temporary div to append the fragment and traverse its contents
+var tempDiv = document.createElement("div");
+tempDiv.appendChild(fragment);
+
+// Find all the <span> elements within the temporary div
+var spanElements = tempDiv.querySelectorAll("span");
+
+// Iterate through the <span> elements and print their content
+spanElements.forEach(function(span) {
+    console.log(span.textContent);
+    span.classList.add(MOUSE_VISITED_CLASSNAME);
+});
+});
+
+document.addEventListener('click', () => {
+  
+  mouseDown = false;
+  console.log("mousedown is now false")
+}); 
 
 // Mouse listener for any move event on the current document.
 document.addEventListener('mousemove', function (e) {
   var srcElement = e.target;
-  srcElement.onmouseover = e => {
-    if (e.target.nodeName == 'P') {
-      e.target.innerHTML = e.target.innerText.replace(/([\w]+)/g, '<span>$1</span>');
-    }
-  };    
-  //console.log('Text content:', childNodes[i].textContent.trim());
-  
+
   // Lets check if our underlying element is a DIV.
-  if (srcElement.nodeName == 'P') {
-    //srcElement.innerHTML = srcElement.innerText.trim().split(/\s+/).map(word => `<span>${word}</span>`).join(' ');
-    //srcElement.innerHTML = srcElement.textContent.replace(/([\w]+)/g, '<span class="wordwrap">$1</span>');
-  }
-  if (srcElement.nodeName == 'SPAN') {
-    if (prevDOM != null) {
-      prevDOM.classList.remove(MOUSE_VISITED_CLASSNAME);
+  if (srcElement.nodeName == 'SPAN' /*&& !mouseDown*/) {
+    if (PREV_ELEMENT != null) {
+      clearClass();
     }
     srcElement.classList.add(MOUSE_VISITED_CLASSNAME);
-    prevDOM = srcElement;
-  }
+    PREV_ELEMENT = srcElement;
+  } 
 }, false);
