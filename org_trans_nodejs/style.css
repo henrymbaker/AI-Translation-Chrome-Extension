@@ -26,6 +26,7 @@
     font-family: Arial, sans-serif !important;
     color: black !important;
     background-color: white;
+    z-index: 1;
 }
 
 #translator-container {
@@ -142,18 +143,21 @@
     margin: 1%;
     border: solid var(--dgreen);
     border-radius: 5px;
-    background: grey;
+    background: var(--dgreen);
     align-items: center !important;
     display: flex;
     flex-direction: column;
 }
 
 .collapsible-content {
+    width: 100%;
     display: none;
     overflow: hidden;
     font: 14px serif;
     line-height: 150%;
-    margin: 2px 5px 2px 15px;
+    /* border-radius: 5px; */
+    /* background-color: transparent; */
+    /* margin: 2px 5px 2px 15px; */
 }
 
 /* Style the button to look like a plain text */
@@ -167,6 +171,12 @@
     font-size: 16px !important;
     cursor: pointer;
     outline: inherit;
+}
+
+.collapsible-text {
+    width: 100%;
+    position: flex;
+    z-index: -1 !important;
 }
 
 .active .collapsible-button.collapsible + .collapsible {
