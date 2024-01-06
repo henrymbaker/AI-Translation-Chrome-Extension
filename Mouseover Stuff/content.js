@@ -60,11 +60,6 @@ spanElements.forEach(function(span) {
 });
 });
 
-document.addEventListener('click', () => {
-  
-  mouseDown = false;
-  console.log("mousedown is now false")
-}); 
 
 // Mouse listener for any move event on the current document.
 document.addEventListener('mousemove', function (e) {
