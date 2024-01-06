@@ -14,6 +14,23 @@ window.onload = function () {
   }
 };
 
+function classListToString() {
+  // Select all <span> elements with a specific class
+let spans = document.querySelectorAll('.' + MOUSE_VISITED_CLASSNAME);
+
+// Initialize an empty string to hold the concatenated text
+let concatenatedText = '';
+
+// Iterate over each <span> element and concatenate their text content
+spans.forEach(span => {
+    concatenatedText += span.textContent + " "; // Add a space between each text
+    console.log(span.textContent);
+});
+
+// 'concatenatedText' now contains the combined text of all <span> elements
+console.log(concatenatedText.trim()); // trim() is used to remove the trailing space
+
+}
 
 
 // Unique ID for the className.
@@ -54,12 +71,14 @@ document.addEventListener('mouseup', function (e) {
 
   // Find all the <span> elements within the temporary div
   var spanElements = tempDiv.querySelectorAll("span");
+  let concatenatedText = '';
   //print elements if it is a <span> element and it is in the classList
   // Iterate through the <span> elements and print their content
     spanElements.forEach(function (span) {
-      console.log(span.textContent);
       span.classList.add(MOUSE_VISITED_CLASSNAME);
+      concatenatedText += span.textContent + " ";
     });
+  console.log(concatenatedText.trim());
   mouseDown = false;
 });
 
