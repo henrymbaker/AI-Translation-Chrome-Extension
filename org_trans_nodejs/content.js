@@ -32,6 +32,7 @@ function clearClass() {
 //var mouseDown = false;
 
 document.addEventListener('mouseup', function (e) {
+    console.log("mouseup");
   // Get the selected text range or create a range manually
   //if mouse is over span element:
   if (e.target.nodeName != 'SPAN') {
@@ -63,6 +64,7 @@ document.addEventListener('mouseup', function (e) {
 });
 
 document.addEventListener('mousedown', function (event) {
+    console.log("mousedown");
   var clickEvent = new MouseEvent('click', {
     bubbles: true,
     cancelable: true,
@@ -80,6 +82,7 @@ document.addEventListener('mousedown', function (event) {
 
 // Mouse listener for any move event on the current document.
 document.addEventListener('mousemove', function (e) {
+    console.log("mousemove");
   if (mouseDown) {
     return;
   }
