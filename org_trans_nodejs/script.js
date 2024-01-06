@@ -38,7 +38,7 @@ app.post('/grammar', async (req, res) => {
         messages = {'preprompt': preprompt,
         'context': context,
         'task': `Analyze the grammar of ${text} in ${targetLanguage}.
-        The response should be a description of the grammatical elements and structures of the text and its meaning is composed. DO NOT go into detail about the definitions of each word, or name the language the sentence is in. Limit your response to succinct and essential information.`};
+        The response should be a description of the grammatical elements and structures of the text and its meaning is composed. DO NOT go into detail about the definitions of each word, or name the language the sentence is in. Limit your response to three sentences.`};
         console.log(messages);
         const response = await axios.get(url, { params: messages });
         console.log(response.status); // status code
@@ -58,7 +58,7 @@ app.post('/nuance', async (req, res) => {
         messages = {'preprompt': preprompt,
         'context': context,
         'task': `Analyze the nuance of ${text} in ${targetLanguage}.
-        The response should be a description of the nuances of the meaning of the text. Touch on as many things as you think can provide important information about the social and cultural context of the text, while also keeping the response concise. Some potential areas can include the referents of the text (especially if they're made ambiguous by pronouns or pro-dropping), the context in which you might find such a sentence, eg in a formal setting, in dialogue, on social media, etc, grammatical clues that are lost in translation (numbers, genders, cases/tenses/aspects), non-grammatical details about the social setting and social positions/roles of the participant(s), non-literal communication such as evoked feelings or vibes. If there is any critical cultural context, such as if it includes a joke, a meme, a pop culture reference, or a reference to something famous, then briefly touch on whatever background information might be necessary to understand that a non-speaker might not have. Only do this if there is important cultural context, otherwise don't mention it at all.`};
+        The response should be a description of the nuances of the meaning of the text. Touch on as many things as you think can provide important information about the social and cultural context of the text, while also keeping the response concise. Some potential areas can include the referents of the text (especially if they're made ambiguous by pronouns or pro-dropping), the context in which you might find such a sentence, eg in a formal setting, in dialogue, on social media, etc, grammatical clues that are lost in translation (numbers, genders, cases/tenses/aspects), non-grammatical details about the social setting and social positions/roles of the participant(s), non-literal communication such as evoked feelings or vibes. If there is any critical cultural context, such as if it includes a joke, a meme, a pop culture reference, or a reference to something famous, then briefly touch on whatever background information might be necessary to understand that a non-speaker might not have. Only do this if there is important cultural context, otherwise don't mention it at all. Limit your response to three sentences.`};
         console.log(messages);
         const response = await axios.get(url, { params: messages });
         console.log(response.status); // status code
