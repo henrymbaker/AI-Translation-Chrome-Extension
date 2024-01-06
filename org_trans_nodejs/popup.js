@@ -1,3 +1,22 @@
+function convertOutput(inputString) {
+    // paragraphs
+    inputString = inputString.split('\n').filter(line => line.trim() !== '')
+            .map(line => `<p>${line.trim()}</p>`).join('');
+
+    return inputString;
+  }
+
+function setVisClass(elementId, setTo) {
+    var element = document.getElementById(elementId);
+    ["active", "error"].forEach((str, index) => {
+        if (setTo === str) {
+            element.classList.add(str);
+        } else {
+            element.classList.remove(str)
+        }
+    });
+}
+
 document.getElementById('input-textholder').addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
       event.preventDefault(); // Prevents the default action of Enter key
@@ -13,6 +32,8 @@ document.getElementById('translate-button').addEventListener('click', async () =
     document.getElementById('output-textholder').innerText = 'Translation will appear here...';
     document.getElementById('grammar-content').innerText = 'Grammar info will appear here...';
     document.getElementById('nuance-content').innerText = 'Nuance info will appear here...';
+    setVisClass('grammar-collapsible', null);
+    setVisClass('nuance-collapsible', null);
 
     try {
         const response = await fetch('http://localhost:3002/translate', {
@@ -50,10 +71,12 @@ document.getElementById('translate-button').addEventListener('click', async () =
 
         const result = await response.json();
         document.getElementById('grammar-content').innerText = result.grammar;
+        setVisClass('grammar-collapsible', 'active');
 
     } catch (error) {
         console.error('Error:', error);
         document.getElementById('grammar-content').innerText = 'Error in grammar';
+        setVisClass('grammar-collapsible', 'error');
     }
 
     try {
@@ -71,10 +94,12 @@ document.getElementById('translate-button').addEventListener('click', async () =
 
         const result = await response.json();
         document.getElementById('nuance-content').innerText = result.nuance;
+        setVisClass('nuance-collapsible', 'active');
 
     } catch (error) {
         console.error('Error:', error);
         document.getElementById('nuance-content').innerText = 'Error in nuance';
+        setVisClass('nuance-collapsible', 'error');
     }
 
 

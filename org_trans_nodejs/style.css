@@ -17,15 +17,41 @@
   margin: 0;
 } */
 
+:root {
+    --dgreen: #2f8033;
+}
+
 .organic-translator {
-    font-family: Arial, sans-serif;
-    color: black;
+    /* applies to every element in the extension */
+    font-family: Arial, sans-serif !important;
+    color: black !important;
+    background-color: white;
+}
+
+#translator-container {
+    background-color: white;
+    padding: 5%;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(213, 148, 148, 0.2);
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    min-height: 400px;
+    max-height: 100vh;
+    width: 90%;
+    overflow: scroll;
+    padding-bottom: 5%;
+    /* width: 400px;
+    height: 400px;
+    text-align: center;
+    justify-content: center;
+    align-items: center; */
 }
 
 #title {
-  text-align: center;
-  color: #4CAF50;
-  margin: 1%;
+    text-align: center;
+    color: var(--dgreen);
+    margin: 1%;
 }
 
 .text-box {
@@ -39,116 +65,110 @@
     margin: 0;
 }
 
-#translator-container {
-  background-color: white;
-  padding: 5%;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(213, 148, 148, 0.2);
-  display: flex;
-  flex-direction: column;
-  height: fit-content;
-  min-height: 400px;
-  max-height: 100vh;
-  width: 90%;
-  overflow: scroll;
-  padding-bottom: 5%;
-  /* width: 400px;
-  height: 400px;
-  text-align: center;
-  justify-content: center;
-  align-items: center; */
-}
-
 #input {
-  display: block;
-  margin-top: 10px;
-  width: 100%;
-  height: 100px;
-  margin-bottom: 10px;
-  text-align: left;
-  display: flex;
-  flex-direction: column;
+    display: block;
+    margin-top: 10px;
+    width: 100%;
+    height: fit-content;
+    min-height: 25px;
+    margin-bottom: 10px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
 }
 
 #label {
-  display: block;
-  font-size: 16px;
-  text-align: left;
-  margin-bottom: 5px;
+    display: block;
+    font-size: 16px;
+    text-align: left;
+    margin-bottom: 5px;
 }
 
-#input-textholder {
-}
+#input-textholder {}
 
 #translate-button {
-  display: block;
-  margin: 10px auto;
-  padding: 10px 20px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    background-color: var(--dgreen);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
 #translate-button:hover {
-  background-color: #45a049;
+    background-color: var(--dgreen) !important;
 }
 
 #output {
-  display: block;
-  margin-top: 10px;
-  width: 100%;
-  min-height: 100px;
-  height: fit-content;
-  margin-bottom: 10px;
-  text-align: left;
-  display: flex;
-  flex-direction: column;
+    display: block;
+    margin-top: 10px;
+    width: 100%;
+    min-height: 100px;
+    height: fit-content;
+    margin-bottom: 10px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
 
 }
 
-#output-textholder {
-}
+#output-textholder {}
 
 .clickable-text {
-  cursor: pointer;
-  color: #4CAF50;
-  margin: 10px 0;
-  font-size: 16px;
+    cursor: pointer;
+    color: var(--dgreen) !important;
+    margin: 10px 0;
+    font-size: 16px;
 }
 
 .clickable-text:hover {
-  color: #45a049;
-  text-decoration: underline;
+    color: var(--dgreen) !important;
+    text-decoration: underline;
 }
 
 #culture-explanation,
 #nuance-explanation {
-  display: none;
-  /* Initially hidden */
-  text-align: left;
-  margin-top: 10px;
-  height: fit-content;
+    display: none;
+    /* Initially hidden */
+    text-align: left;
+    margin-top: 10px;
+    height: fit-content;
 }
 
 .collapsible {
     margin: 1%;
+    border: solid var(--dgreen);
+    border-radius: 5px;
+    background: grey;
+    align-items: center !important;
+    display: flex;
+    flex-direction: column;
 }
 
 .collapsible-content {
-  display: none;
-  overflow: hidden;
+    display: none;
+    overflow: hidden;
+    font: 14px serif;
+    line-height: 150%;
+    margin: 2px 5px 2px 15px;
 }
 
 /* Style the button to look like a plain text */
 .collapsible-button {
-  background: none;
-  color: inherit;
-  border: none;
-  font-weight: bold !important;
-  padding: 0;
-  font: inherit;
-  cursor: pointer;
-  outline: inherit;
+    background-color: inherit;
+    color: #ffffff !important;
+    border: none;
+    font-weight: bold !important;
+    padding: 0;
+    font: inherit;
+    font-size: 16px !important;
+    cursor: pointer;
+    outline: inherit;
+}
+
+.active .collapsible-button.collapsible + .collapsible {
+    background: var(--dgreen);
 }
