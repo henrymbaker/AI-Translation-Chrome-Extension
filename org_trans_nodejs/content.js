@@ -78,6 +78,12 @@ function closeNuanceWindow() {
   }
 }
 
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.action === "openTranslator") {
+        createNuanceWindow();
+    }
+});
+
 function updateTextBox() {
   var inputTextHolder = document.getElementById('input-textholder');
   if (inputTextHolder != null) {
