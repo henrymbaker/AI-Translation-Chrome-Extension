@@ -59,7 +59,6 @@ document.addEventListener('mouseup', function (e) {
       console.log(span.textContent);
       span.classList.add(MOUSE_VISITED_CLASSNAME);
     });
-  console.log("mousedown is now false");
   mouseDown = false;
 });
 
@@ -77,7 +76,6 @@ document.addEventListener('mousedown', function (event) {
   event.stopImmediatePropagation();
 
   mouseDown = true;
-  console.log("mousedown is now true");
 });
 
 // Mouse listener for any move event on the current document.

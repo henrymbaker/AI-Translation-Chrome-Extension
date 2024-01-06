@@ -10,6 +10,9 @@
       "js": ["content.js"]
     }
   ],
+  "permissions": [
+    "storage"
+  ],
   "icons": {
     "16": "icons/org_trans16.png",
     "48": "icons/org_trans48.png",
