@@ -1,3 +1,7 @@
+:root {
+  --dgreen: #2f8033;
+}
+
 * {
     font-family: Arial, sans-serif;
 }
@@ -19,7 +23,7 @@ body {
 
 #title {
   text-align: center;
-  color: #4CAF50;
+  color: var(--dgreen);
   margin: 1%;
 }
 
@@ -45,7 +49,9 @@ body {
   min-height: 400px;
   max-height: 100vh;
   width: 90%;
-  overflow: scroll;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overflow-wrap: anywhere;
   padding-bottom: 5%;
   /* width: 400px;
   height: 400px;
@@ -79,7 +85,7 @@ body {
   display: block;
   margin: 10px auto;
   padding: 10px 20px;
-  background-color: #4CAF50;
+  background-color: var(--dgreen);
   color: white;
   border: none;
   border-radius: 4px;
@@ -93,6 +99,7 @@ body {
 #output {
   display: block;
   margin-top: 10px;
+  margin-bottom: 10px;
   width: 100%;
   min-height: 100px;
   height: fit-content;
@@ -100,7 +107,7 @@ body {
   text-align: left;
   display: flex;
   flex-direction: column;
-
+  font-size: 16px;
 }
 
 #output-textholder {
@@ -129,21 +136,31 @@ body {
 
 .collapsible {
     margin: 1%;
+    border: solid var(--dgreen);
 }
 
 .collapsible-content {
   display: none;
   overflow: hidden;
+  /* border: solid; */
+}
+
+.collapsible-content p {
+  font: 14px serif;
+  line-height: 150%;
+  margin: 2px 5px 2px 15px;
 }
 
 /* Style the button to look like a plain text */
 .collapsible-button {
-  background: none;
-  color: inherit;
+  background: var(--dgreen);
+  color: #ffffff;
+  width: 100%;
   border: none;
   font-weight: bold !important;
   padding: 0;
   font: inherit;
+  font-size: 16px;
   cursor: pointer;
   outline: inherit;
 }

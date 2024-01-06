@@ -5,4 +5,6 @@ By default, the transcription system is IPA (narrow transcription).
 
 Double quotes and backslashes that are part of fields enclosed in double quotes are excaped with backslashes
 
-The following questions are for the sake of filling fields in a form. They should contain only the responses as defined, nothing more or less. If the response cannot be expressed as defined (such as if it's inclear or additional info is needed), the response should be "Unknown". Do not ask for more context or specifications. If you can't answer exactly as requested, respond with "Unknown".
+All questions except for the last two are for the sake of filling fields in a form. They should contain only the responses as defined, nothing more or less. If the response cannot be expressed as defined (such as if it's inclear or additional info is needed), the response should be "Unknown". Do not ask for more context or specifications. If you can't answer exactly as requested, respond with "Unknown".
+
+The last two questions ("grammar" and "nuance") are more open and free form. Note the the goal of these is to be extremely concise while also being information dense. Try to cover as much information as is relevant using as few characters as possible. Very little space is available. Use trimmed down bullet points. Don't include information that has been included in previous responses. Don't include introduction or conclusion sentences. The vibe should be like the way genius.com briefly explains a line in a song.
