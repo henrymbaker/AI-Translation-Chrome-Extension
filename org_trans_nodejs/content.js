@@ -121,13 +121,13 @@ document.addEventListener('mouseup', function (e) {
 
   mouseDown = false;
   clearClass();
-
   // Check if the mouseup event is not on a <span> element and there is a selected text
-  if (e.target.nodeName != 'SPAN' && !window.getSelection().isCollapsed) {
+  if (!mouseDown && !window.getSelection().toString()) {
     console.log("clear");
     SELECTED_STRING = "";
     updateTextBox();
   } else {
+    console.log("you have something selected")
     // Handle selection if the mouseup event is on a <span> element
     var selection = window.getSelection();
     var range = selection.getRangeAt(0);
