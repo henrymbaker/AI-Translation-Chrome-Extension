@@ -21,14 +21,14 @@ const openai = new OpenAI();
 // main function to make the api call, need to use chat completion api call
 app.post('/translate', async (req, res) => {
     const { text, targetLanguage } = req.body;
-    const context = fs.readFileSync('./context.txt', 'utf8');
+    const preprompt = fs.readFileSync('./preprompt.txt', 'utf8');
     try {
         const response = await openai.chat.completions.create({
             model: "gpt-3.5-turbo", // or use the latest available model
             messages: [
-                {role: "system", content: context},
+                {role: "system", content: preprompt},
                 {role: "system", 
-            content: 'Translate ${text} to ${targetLanguage}'}  
+            content: `Translate ${text} to ${targetLanguage}`}  
             ],
         });
         // console.log(response)
