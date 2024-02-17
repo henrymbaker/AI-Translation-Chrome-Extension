@@ -1,9 +1,0 @@
-.crx_mouse_visited {
-    background-color: #bcd5eb !important;
-    outline: 1px solid #5166bb !important;
-  }
-/* CSS to change the highlight color */
-::selection {
-  background-color: #bcd5eb !important;
-  outline: 1px solid #5166bb !important;
-}
